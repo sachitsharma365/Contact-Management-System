@@ -1,0 +1,21 @@
+A Contact Management System including features like:-
+1. Add Contact
+2. View Contacts
+3. Delete Contact
+4. Search Contact
+5. Export Contacts
+6. Import Contacts
+
+Data Structure for Contact:-
+{
+  Name:
+  Number:
+  Address:
+  E-mail:
+}
+
+First I will make the basic features like add, view & delete contact. Later I will implement features like search, export and import.
+
+Initially I will save contacts in an array then later on we have to save them in a separate file. Also we do need a custom mini-database system to search contacts from the file using filter operations.
+
+But I do need to think of the data structure in which I will store the contact, so that search operations and deletion of the contacts can be made easily.
