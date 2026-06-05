@@ -2,9 +2,10 @@ A Contact Management System including features like:-
 1. Add Contact
 2. View Contacts
 3. Delete Contact
-4. Search Contact
-5. Export Contacts
-6. Import Contacts
+4. Update Contact
+5. Search Contact
+6. Export Contacts
+7. Import Contacts
 
 Data Structure for Contact:-
 {
