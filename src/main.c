@@ -30,6 +30,10 @@ int menu()
   printf("> ");
   scanf("%d", &userInput);
 
+  int c;
+  while ((c = getchar()) != '\n' && c != EOF)
+    ;
+
   return userInput;
 }
 
@@ -43,7 +47,7 @@ int main()
     switch (userChoice)
     {
     case ADD_CONTACT:
-      printf("Calling Add Contact...\n");
+      addContact();
       break;
     case VIEW_CONTACTS:
       printf("Calling View Contacts...\n");
