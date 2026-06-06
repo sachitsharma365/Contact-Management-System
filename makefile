@@ -1,6 +1,6 @@
 CFLAGS =  -Iincludes
-SRC = src/main.c src/add-contact.c
-OBJ = main.o add-contact.o
+SRC = src/main.c src/repository.c
+OBJ = main.o repository.o
 
 program: $(OBJ)
 	gcc $(OBJ) -o program
@@ -8,8 +8,8 @@ program: $(OBJ)
 main.o: src/main.c
 	gcc $(CFLAGS) -c src/main.c
 
-add-contact.o: src/add-contact.c
-	gcc $(CFLAGS) -c src/add-contact.c
+repository.o: src/repository.c
+	gcc $(CFLAGS) -c src/repository.c
 
 clean:
 	rm -f *.o program
