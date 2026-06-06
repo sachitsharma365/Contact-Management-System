@@ -17,7 +17,7 @@ int menu()
 {
   int userInput;
 
-  printf("Welcome to the Contact Management System.\nChoose any option from below and enter the respective number.\n");
+  printf("\nWelcome to the Contact Management System.\nChoose any option from below and enter the respective number.\n");
   printf("1. Add Contact\n"
          "2. View Contacts\n"
          "3. Delete Contact\n"
@@ -47,10 +47,10 @@ int main()
     switch (userChoice)
     {
     case ADD_CONTACT:
-      addContact();
+      createContactFromInput();
       break;
     case VIEW_CONTACTS:
-      printf("Calling View Contacts...\n");
+      viewContact();
       break;
     case DELETE_CONTACT:
       printf("Calling Delete Contact...\n");
