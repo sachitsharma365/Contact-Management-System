@@ -29,19 +29,19 @@ void createContactFromInput()
   CONTACT tempContact;
 
   // TAKING USER INPUT
-  printf("Enter the contact name: ");
+  printf(ANSI_COLOR_GREEN"Enter the contact name: "ANSI_COLOR_RESET);
   fgets(tempName, sizeof(tempName), stdin);
   tempName[strcspn(tempName, "\n")] = '\0';
 
-  printf("Enter the contact phone no: ");
+  printf(ANSI_COLOR_GREEN"Enter the contact phone no: "ANSI_COLOR_RESET);
   fgets(tempPhone, sizeof(tempPhone), stdin);
   tempPhone[strcspn(tempPhone, "\n")] = '\0';
 
-  printf("Enter the contact address: ");
+  printf(ANSI_COLOR_GREEN"Enter the contact address: "ANSI_COLOR_RESET);
   fgets(tempAddress, sizeof(tempAddress), stdin);
   tempAddress[strcspn(tempAddress, "\n")] = '\0';
 
-  printf("Enter the contact e-mail: ");
+  printf(ANSI_COLOR_GREEN"Enter the contact e-mail: "ANSI_COLOR_RESET);
   fgets(tempEmail, sizeof(tempEmail), stdin);
   tempEmail[strcspn(tempEmail, "\n")] = '\0';
 
@@ -65,7 +65,7 @@ void addContact(CONTACT tempContact)
 {
   if (contactCount >= MAX_CONTACTS)
   {
-    printf("Contact list is full.\n");
+    printf(ANSI_COLOR_RED"Contact list is full.\n"ANSI_COLOR_RESET);
     return;
   }
 

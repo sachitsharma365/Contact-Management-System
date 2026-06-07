@@ -68,9 +68,10 @@ void searchMenu()
   {
   case SEARCH_BY_ID:
     int searchMenuUserId;
-    printf("Enter the User Id you want to search for: ");
+    printf(ANSI_COLOR_GREEN"Enter the User Id you want to search for: "ANSI_COLOR_RESET);
     scanf("%d", &searchMenuUserId);
     clearInputBuffer();
+    
     int searchByIdReturnValue = searchContactById(searchMenuUserId);
     if (searchByIdReturnValue != 1)
     {

@@ -4,6 +4,7 @@
 // COLOR MACROS
 #define ANSI_COLOR_RED     "\033[31m"
 #define ANSI_COLOR_BLUE    "\033[34m"
+#define ANSI_COLOR_GREEN   "\033[32m"
 #define ANSI_COLOR_RESET   "\033[0m"
 
 // FUNCTIONS
