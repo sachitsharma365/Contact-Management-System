@@ -3,9 +3,13 @@
 #include "../includes/repository.h"
 #include "../includes/contact.h"
 
+
+// STATIC GLOBAL VARIABLES
 static CONTACT contacts[100];
 static int contactCount = 0;
 
+
+// FUNCTIONS
 void createContactFromInput()
 {
   char tempName[100], tempPhone[20], tempAddress[100], tempEmail[100];
@@ -59,9 +63,23 @@ void addContact(CONTACT tempContact)
   contactCount++;
 }
 
-void viewContact(){
+void viewContact()
+{
+
   for (int i = 0; i < contactCount; i++)
   {
     printf("{\nId: %d\nName: %s\nPhone No: %s\nAddress: %s\nE-mail: %s\n}\n\n", contacts[i].id, contacts[i].name, contacts[i].phone, contacts[i].address, contacts[i].email);
+  }
+}
+
+int searchContactById(int searchMenuUserId)
+{
+  for (int i = 0; i <= contactCount; i++)
+  {
+    if (i == searchMenuUserId)
+    {
+      printf("{\nId: %d\nName: %s\nPhone No: %s\nAddress: %s\nE-mail: %s\n}\n\n", contacts[i-1].id, contacts[i-1].name, contacts[i-1].phone, contacts[i-1].address, contacts[i-1].email);
+      return 1;
+    }
   }
 }
