@@ -2,12 +2,25 @@
 #include <string.h>
 #include "../includes/repository.h"
 #include "../includes/contact.h"
-
+#include "../includes/helper_funs.h"
 
 // STATIC GLOBAL VARIABLES
-static CONTACT contacts[100];
+static CONTACT contacts[MAX_CONTACTS];
 static int contactCount = 0;
 
+// HELPER FUNCTIONS
+int findContactIndexById(int id)
+{
+  for (int i = 0; i < contactCount; i++)
+  {
+    if (contacts[i].id == id)
+    {
+      return i;
+    }
+  }
+
+  return -1;
+}
 
 // FUNCTIONS
 void createContactFromInput()
@@ -50,7 +63,7 @@ void createContactFromInput()
 
 void addContact(CONTACT tempContact)
 {
-  if (contactCount >= 100)
+  if (contactCount >= MAX_CONTACTS)
   {
     printf("Contact list is full.\n");
     return;
@@ -74,12 +87,15 @@ void viewContact()
 
 int searchContactById(int searchMenuUserId)
 {
-  for (int i = 0; i <= contactCount; i++)
+  int contactIndex = findContactIndexById(searchMenuUserId);
+
+  if (contactIndex != -1)
   {
-    if (i == searchMenuUserId)
-    {
-      printf("{\nId: %d\nName: %s\nPhone No: %s\nAddress: %s\nE-mail: %s\n}\n\n", contacts[i-1].id, contacts[i-1].name, contacts[i-1].phone, contacts[i-1].address, contacts[i-1].email);
-      return 1;
-    }
+    printf("{\nId: %d\nName: %s\nPhone No: %s\nAddress: %s\nE-mail: %s\n}\n\n", contacts[contactIndex].id, contacts[contactIndex].name, contacts[contactIndex].phone, contacts[contactIndex].address, contacts[contactIndex].email);
+    return 1;
+  }
+  else
+  {
+    return 0;
   }
 }

@@ -1,6 +1,9 @@
 #ifndef CONTACT_H
 #define CONTACT_H
 
+// MACROS
+#define MAX_CONTACTS 100
+
 typedef struct
 {
   int id;

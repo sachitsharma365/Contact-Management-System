@@ -1,20 +1,6 @@
 #include <stdio.h>
 #include "../includes/repository.h"
-
-
-// HELPER FUNCTIONS
-void clearInputBuffer()
-{
-  int c;
-  while ((c = getchar()) != '\n' && c != EOF)
-    ;
-}
-
-
-// COLOR MACROS
-#define ANSI_COLOR_RED     "\033[31m"
-#define ANSI_COLOR_BLUE    "\033[34m"
-#define ANSI_COLOR_RESET   "\033[0m"
+#include "../includes/helper_funs.h"
 
 
 // DEFINING ENUMERATORS
