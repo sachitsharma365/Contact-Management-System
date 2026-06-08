@@ -4,11 +4,20 @@
 #include "../includes/contact.h"
 #include "../includes/helper_funs.h"
 
+
 // STATIC GLOBAL VARIABLES
 static CONTACT contacts[MAX_CONTACTS];
 static int contactCount = 0;
 
+
 // HELPER FUNCTIONS
+void showContact(int index)
+{
+  printf("{\nId: %d\nName: %s\nPhone No: %s\nAddress: %s\nE-mail: %s\n}\n\n", contacts[index].id, contacts[index].name, contacts[index].phone, contacts[index].address, contacts[index].email);
+}
+
+
+
 int findContactIndexById(int id)
 {
   for (int i = 0; i < contactCount; i++)
@@ -22,6 +31,55 @@ int findContactIndexById(int id)
   return -1;
 }
 
+int findContactIndexByName(char name[CONTACT_NAME_LEN]){
+  for (int i = 0; i < contactCount; i++)
+  {
+    if (strcmp(contacts[i].name, name) == 0)
+    {
+      return i;
+    }
+    
+  }
+  return -1;
+}
+
+int findContactIndexByPhone(char phone[CONTACT_PHONE_LEN]){
+  for (int i = 0; i < contactCount; i++)
+  {
+    if (strcmp(contacts[i].phone, phone) == 0)
+    {
+      return i;
+    }
+    
+  }
+  return -1;
+}
+
+int findContactIndexByAddress(char address[CONTACT_ADDRESS_LEN]){
+  for (int i = 0; i < contactCount; i++)
+  {
+    if (strcmp(contacts[i].address, address) == 0)
+    {
+      return i;
+    }
+    
+  }
+  return -1;
+}
+
+int findContactIndexByEmail(char email[CONTACT_EMAIL_LEN]){
+  for (int i = 0; i < contactCount; i++)
+  {
+    if (strcmp(contacts[i].email, email) == 0)
+    {
+      return i;
+    }
+    
+  }
+  return -1;
+}
+
+
 // FUNCTIONS
 void createContactFromInput()
 {
@@ -29,19 +87,19 @@ void createContactFromInput()
   CONTACT tempContact;
 
   // TAKING USER INPUT
-  printf(ANSI_COLOR_GREEN"Enter the contact name: "ANSI_COLOR_RESET);
+  printf(ANSI_COLOR_GREEN "Enter the contact name: " ANSI_COLOR_RESET);
   fgets(tempName, sizeof(tempName), stdin);
   tempName[strcspn(tempName, "\n")] = '\0';
 
-  printf(ANSI_COLOR_GREEN"Enter the contact phone no: "ANSI_COLOR_RESET);
+  printf(ANSI_COLOR_GREEN "Enter the contact phone no: " ANSI_COLOR_RESET);
   fgets(tempPhone, sizeof(tempPhone), stdin);
   tempPhone[strcspn(tempPhone, "\n")] = '\0';
 
-  printf(ANSI_COLOR_GREEN"Enter the contact address: "ANSI_COLOR_RESET);
+  printf(ANSI_COLOR_GREEN "Enter the contact address: " ANSI_COLOR_RESET);
   fgets(tempAddress, sizeof(tempAddress), stdin);
   tempAddress[strcspn(tempAddress, "\n")] = '\0';
 
-  printf(ANSI_COLOR_GREEN"Enter the contact e-mail: "ANSI_COLOR_RESET);
+  printf(ANSI_COLOR_GREEN "Enter the contact e-mail: " ANSI_COLOR_RESET);
   fgets(tempEmail, sizeof(tempEmail), stdin);
   tempEmail[strcspn(tempEmail, "\n")] = '\0';
 
@@ -65,7 +123,7 @@ void addContact(CONTACT tempContact)
 {
   if (contactCount >= MAX_CONTACTS)
   {
-    printf(ANSI_COLOR_RED"Contact list is full.\n"ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_RED "Contact list is full.\n" ANSI_COLOR_RESET);
     return;
   }
 
@@ -78,10 +136,9 @@ void addContact(CONTACT tempContact)
 
 void viewContact()
 {
-
   for (int i = 0; i < contactCount; i++)
   {
-    printf("{\nId: %d\nName: %s\nPhone No: %s\nAddress: %s\nE-mail: %s\n}\n\n", contacts[i].id, contacts[i].name, contacts[i].phone, contacts[i].address, contacts[i].email);
+    showContact(i);
   }
 }
 
@@ -91,11 +148,55 @@ int searchContactById(int searchMenuUserId)
 
   if (contactIndex != -1)
   {
-    printf("{\nId: %d\nName: %s\nPhone No: %s\nAddress: %s\nE-mail: %s\n}\n\n", contacts[contactIndex].id, contacts[contactIndex].name, contacts[contactIndex].phone, contacts[contactIndex].address, contacts[contactIndex].email);
+    showContact(contactIndex);
     return 1;
   }
   else
   {
     return 0;
   }
+}
+
+int searchContactByName(char searchMenuUserName[CONTACT_NAME_LEN]){
+  int contactIndex = findContactIndexByName(searchMenuUserName);
+
+  if (contactIndex != -1)
+  {
+    showContact(contactIndex);
+    return 1;
+  }
+  return 0;
+}
+
+int searchContactByPhone(char searchMenuUserPhone[CONTACT_PHONE_LEN]){
+  int contactIndex = findContactIndexByPhone(searchMenuUserPhone);
+
+  if (contactIndex != -1)
+  {
+    showContact(contactIndex);
+    return 1;
+  }
+  return 0;
+}
+
+int searchContactByAddress(char searchMenuUserAddress[CONTACT_ADDRESS_LEN]){
+  int contactIndex = findContactIndexByAddress(searchMenuUserAddress);
+
+  if (contactIndex != -1)
+  {
+    showContact(contactIndex);
+    return 1;
+  }
+  return 0;
+}
+
+int searchContactByEmail(char searchMenuUserEmail[CONTACT_EMAIL_LEN]){
+  int contactIndex = findContactIndexByEmail(searchMenuUserEmail);
+
+  if (contactIndex != -1)
+  {
+    showContact(contactIndex);
+    return 1;
+  }
+  return 0;
 }

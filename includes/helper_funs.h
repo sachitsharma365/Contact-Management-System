@@ -9,5 +9,7 @@
 
 // FUNCTIONS
 void clearInputBuffer();
+int readLine(char *buffer, int size);
+int readInt(int *value);
 
 #endif
