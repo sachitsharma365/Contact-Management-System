@@ -11,12 +11,12 @@ static int contactCount = 0;
 
 
 // HELPER FUNCTIONS
-static void showContact(int index)
+void showContact(int index)
 {
   printf("{\nId: %d\nName: %s\nPhone No: %s\nAddress: %s\nE-mail: %s\n}\n\n", contacts[index].id, contacts[index].name, contacts[index].phone, contacts[index].address, contacts[index].email);
 }
 
-static int findContactIndexById(int id)
+int findContactIndexById(int id)
 {
   for (int i = 0; i < contactCount; i++)
   {
@@ -29,7 +29,7 @@ static int findContactIndexById(int id)
   return -1;
 }
 
-static int findContactIndexByName(char name[CONTACT_NAME_LEN]){
+int findContactIndexByName(char name[CONTACT_NAME_LEN]){
   for (int i = 0; i < contactCount; i++)
   {
     if (strcmp(contacts[i].name, name) == 0)
@@ -41,7 +41,7 @@ static int findContactIndexByName(char name[CONTACT_NAME_LEN]){
   return -1;
 }
 
-static int findContactIndexByPhone(char phone[CONTACT_PHONE_LEN]){
+int findContactIndexByPhone(char phone[CONTACT_PHONE_LEN]){
   for (int i = 0; i < contactCount; i++)
   {
     if (strcmp(contacts[i].phone, phone) == 0)
@@ -53,7 +53,7 @@ static int findContactIndexByPhone(char phone[CONTACT_PHONE_LEN]){
   return -1;
 }
 
-static int findContactIndexByAddress(char address[CONTACT_ADDRESS_LEN]){
+int findContactIndexByAddress(char address[CONTACT_ADDRESS_LEN]){
   for (int i = 0; i < contactCount; i++)
   {
     if (strcmp(contacts[i].address, address) == 0)
@@ -65,7 +65,7 @@ static int findContactIndexByAddress(char address[CONTACT_ADDRESS_LEN]){
   return -1;
 }
 
-static int findContactIndexByEmail(char email[CONTACT_EMAIL_LEN]){
+int findContactIndexByEmail(char email[CONTACT_EMAIL_LEN]){
   for (int i = 0; i < contactCount; i++)
   {
     if (strcmp(contacts[i].email, email) == 0)
@@ -137,24 +137,7 @@ void viewContact()
 }
 
 // SEARCH FUNCTIONS
-int searchContactById(int searchMenuUserId)
-{
-  int contactIndex = findContactIndexById(searchMenuUserId);
-
-  if (contactIndex != -1)
-  {
-    showContact(contactIndex);
-    return 1;
-  }
-  else
-  {
-    return 0;
-  }
-}
-
-int searchContactByName(char searchMenuUserName[CONTACT_NAME_LEN]){
-  int contactIndex = findContactIndexByName(searchMenuUserName);
-
+int searchContact(int contactIndex){
   if (contactIndex != -1)
   {
     showContact(contactIndex);
@@ -163,35 +146,5 @@ int searchContactByName(char searchMenuUserName[CONTACT_NAME_LEN]){
   return 0;
 }
 
-int searchContactByPhone(char searchMenuUserPhone[CONTACT_PHONE_LEN]){
-  int contactIndex = findContactIndexByPhone(searchMenuUserPhone);
 
-  if (contactIndex != -1)
-  {
-    showContact(contactIndex);
-    return 1;
-  }
-  return 0;
-}
-
-int searchContactByAddress(char searchMenuUserAddress[CONTACT_ADDRESS_LEN]){
-  int contactIndex = findContactIndexByAddress(searchMenuUserAddress);
-
-  if (contactIndex != -1)
-  {
-    showContact(contactIndex);
-    return 1;
-  }
-  return 0;
-}
-
-int searchContactByEmail(char searchMenuUserEmail[CONTACT_EMAIL_LEN]){
-  int contactIndex = findContactIndexByEmail(searchMenuUserEmail);
-
-  if (contactIndex != -1)
-  {
-    showContact(contactIndex);
-    return 1;
-  }
-  return 0;
-}
+// DELETE FUNCTIONS
