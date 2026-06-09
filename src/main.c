@@ -60,7 +60,7 @@ void searchMenu()
 
   int selectedContactIndex = selectContact(searchMenuUserChoice);
 
-  searchContact(selectedContactIndex);
+  showSelectedContact(selectedContactIndex);
 }
 
 

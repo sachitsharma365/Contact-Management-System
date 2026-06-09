@@ -3,20 +3,13 @@
 
 #include "contact.h"
 
-int findContactIndexById(int id);
-int findContactIndexByName(char name[CONTACT_NAME_LEN]);
-int findContactIndexByPhone(char phone[CONTACT_PHONE_LEN]);
-int findContactIndexByAddress(char address[CONTACT_ADDRESS_LEN]);
-int findContactIndexByEmail(char email[CONTACT_EMAIL_LEN]);
+int selectContact(int userChoiceForSelection);
 
 void createContactFromInput(void);
 void addContact(CONTACT tempContact);
 void viewContact(void);
 
-int searchContact(int contactIndex);
-
-int delteContactById(int deleteMenuUserId);
-int deleteContactByName(int deleteMenuUserChoice);
+void showSelectedContact(int contactIndex);
 
 
 #endif

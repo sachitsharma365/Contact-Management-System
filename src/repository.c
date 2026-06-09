@@ -4,11 +4,19 @@
 #include "../includes/contact.h"
 #include "../includes/helper_funs.h"
 
+// ENUMERATORS
+typedef enum
+{
+  SELECT_BY_ID = 1,
+  SELECT_BY_NAME,
+  SELECT_BY_PHONE,
+  SELECT_BY_ADDRESS,
+  SELECT_BY_E_MAIL,
+} SELECT_MENU_OPTIONS;
 
 // STATIC GLOBAL VARIABLES
 static CONTACT contacts[MAX_CONTACTS];
 static int contactCount = 0;
-
 
 // HELPER FUNCTIONS
 void showContact(int index)
@@ -16,7 +24,7 @@ void showContact(int index)
   printf("{\nId: %d\nName: %s\nPhone No: %s\nAddress: %s\nE-mail: %s\n}\n\n", contacts[index].id, contacts[index].name, contacts[index].phone, contacts[index].address, contacts[index].email);
 }
 
-int findContactIndexById(int id)
+static int findContactIndexById(int id)
 {
   for (int i = 0; i < contactCount; i++)
   {
@@ -29,54 +37,123 @@ int findContactIndexById(int id)
   return -1;
 }
 
-int findContactIndexByName(char name[CONTACT_NAME_LEN]){
+static int findContactIndexByName(char name[CONTACT_NAME_LEN])
+{
   for (int i = 0; i < contactCount; i++)
   {
     if (strcmp(contacts[i].name, name) == 0)
     {
       return i;
     }
-    
   }
   return -1;
 }
 
-int findContactIndexByPhone(char phone[CONTACT_PHONE_LEN]){
+static int findContactIndexByPhone(char phone[CONTACT_PHONE_LEN])
+{
   for (int i = 0; i < contactCount; i++)
   {
     if (strcmp(contacts[i].phone, phone) == 0)
     {
       return i;
     }
-    
   }
   return -1;
 }
 
-int findContactIndexByAddress(char address[CONTACT_ADDRESS_LEN]){
+static int findContactIndexByAddress(char address[CONTACT_ADDRESS_LEN])
+{
   for (int i = 0; i < contactCount; i++)
   {
     if (strcmp(contacts[i].address, address) == 0)
     {
       return i;
     }
-    
   }
   return -1;
 }
 
-int findContactIndexByEmail(char email[CONTACT_EMAIL_LEN]){
+static int findContactIndexByEmail(char email[CONTACT_EMAIL_LEN])
+{
   for (int i = 0; i < contactCount; i++)
   {
     if (strcmp(contacts[i].email, email) == 0)
     {
       return i;
     }
-    
   }
   return -1;
 }
 
+int selectContact(int userChoiceForSelection)
+{
+  int selectedContactIndex;
+  switch (userChoiceForSelection)
+  {
+  case SELECT_BY_ID:
+  {
+    int selectMenuUserId;
+    printf(ANSI_COLOR_GREEN "Enter the User Id: " ANSI_COLOR_RESET);
+    if (!readInt(&selectMenuUserId))
+    {
+      selectMenuUserId = -1;
+    }
+
+    selectedContactIndex = findContactIndexById(selectMenuUserId);
+    return selectedContactIndex;
+  }
+
+  break;
+  case SELECT_BY_NAME:
+  {
+    char selectMenuUserName[CONTACT_NAME_LEN];
+    printf(ANSI_COLOR_GREEN "Enter the User Name: " ANSI_COLOR_RESET);
+    readLine(selectMenuUserName, sizeof(selectMenuUserName));
+
+    selectedContactIndex = findContactIndexByName(selectMenuUserName);
+    return selectedContactIndex;
+  }
+
+  break;
+  case SELECT_BY_PHONE:
+  {
+    char selectMenuUserPhone[CONTACT_PHONE_LEN];
+    printf(ANSI_COLOR_GREEN "Enter the User Phone Number: " ANSI_COLOR_RESET);
+    readLine(selectMenuUserPhone, sizeof(selectMenuUserPhone));
+
+    selectedContactIndex = findContactIndexByPhone(selectMenuUserPhone);
+    return selectedContactIndex;
+  }
+
+  break;
+  case SELECT_BY_ADDRESS:
+  {
+    char selectMenuUserAddress[CONTACT_ADDRESS_LEN];
+    printf(ANSI_COLOR_GREEN "Enter the User Address: " ANSI_COLOR_RESET);
+    readLine(selectMenuUserAddress, sizeof(selectMenuUserAddress));
+
+    selectedContactIndex = findContactIndexByAddress(selectMenuUserAddress);
+    return selectedContactIndex;
+  }
+
+  break;
+  case SELECT_BY_E_MAIL:
+  {
+    char selectMenuUserEmail[CONTACT_EMAIL_LEN];
+    printf(ANSI_COLOR_GREEN "Enter the User Email: " ANSI_COLOR_RESET);
+    readLine(selectMenuUserEmail, sizeof(selectMenuUserEmail));
+
+    selectedContactIndex = findContactIndexByEmail(selectMenuUserEmail);
+    return selectedContactIndex;
+  }
+
+  break;
+  default:
+    printf(ANSI_COLOR_RED "No Contact Found :(" ANSI_COLOR_RESET);
+    return -1;
+    break;
+  }
+}
 
 // FUNCTIONS
 void createContactFromInput()
@@ -136,15 +213,12 @@ void viewContact()
   }
 }
 
-// SEARCH FUNCTIONS
-int searchContact(int contactIndex){
+void showSelectedContact(int contactIndex)
+{
   if (contactIndex != -1)
   {
     showContact(contactIndex);
-    return 1;
   }
-  return 0;
 }
-
 
 // DELETE FUNCTIONS
