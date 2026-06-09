@@ -3,9 +3,8 @@
 
 #include "contact.h"
 
-int findContactIndexById(int id);
-void addContact(CONTACT tempContact);
 void createContactFromInput(void);
+void addContact(CONTACT tempContact);
 void viewContact(void);
 int searchContactById(int searchMenuUserId);
 int searchContactByName(char searchMenuUserName[CONTACT_NAME_LEN]);

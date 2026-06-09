@@ -11,14 +11,12 @@ static int contactCount = 0;
 
 
 // HELPER FUNCTIONS
-void showContact(int index)
+static void showContact(int index)
 {
   printf("{\nId: %d\nName: %s\nPhone No: %s\nAddress: %s\nE-mail: %s\n}\n\n", contacts[index].id, contacts[index].name, contacts[index].phone, contacts[index].address, contacts[index].email);
 }
 
-
-
-int findContactIndexById(int id)
+static int findContactIndexById(int id)
 {
   for (int i = 0; i < contactCount; i++)
   {
@@ -31,7 +29,7 @@ int findContactIndexById(int id)
   return -1;
 }
 
-int findContactIndexByName(char name[CONTACT_NAME_LEN]){
+static int findContactIndexByName(char name[CONTACT_NAME_LEN]){
   for (int i = 0; i < contactCount; i++)
   {
     if (strcmp(contacts[i].name, name) == 0)
@@ -43,7 +41,7 @@ int findContactIndexByName(char name[CONTACT_NAME_LEN]){
   return -1;
 }
 
-int findContactIndexByPhone(char phone[CONTACT_PHONE_LEN]){
+static int findContactIndexByPhone(char phone[CONTACT_PHONE_LEN]){
   for (int i = 0; i < contactCount; i++)
   {
     if (strcmp(contacts[i].phone, phone) == 0)
@@ -55,7 +53,7 @@ int findContactIndexByPhone(char phone[CONTACT_PHONE_LEN]){
   return -1;
 }
 
-int findContactIndexByAddress(char address[CONTACT_ADDRESS_LEN]){
+static int findContactIndexByAddress(char address[CONTACT_ADDRESS_LEN]){
   for (int i = 0; i < contactCount; i++)
   {
     if (strcmp(contacts[i].address, address) == 0)
@@ -67,7 +65,7 @@ int findContactIndexByAddress(char address[CONTACT_ADDRESS_LEN]){
   return -1;
 }
 
-int findContactIndexByEmail(char email[CONTACT_EMAIL_LEN]){
+static int findContactIndexByEmail(char email[CONTACT_EMAIL_LEN]){
   for (int i = 0; i < contactCount; i++)
   {
     if (strcmp(contacts[i].email, email) == 0)
@@ -88,20 +86,16 @@ void createContactFromInput()
 
   // TAKING USER INPUT
   printf(ANSI_COLOR_GREEN "Enter the contact name: " ANSI_COLOR_RESET);
-  fgets(tempName, sizeof(tempName), stdin);
-  tempName[strcspn(tempName, "\n")] = '\0';
+  readLine(tempName, sizeof(tempName));
 
   printf(ANSI_COLOR_GREEN "Enter the contact phone no: " ANSI_COLOR_RESET);
-  fgets(tempPhone, sizeof(tempPhone), stdin);
-  tempPhone[strcspn(tempPhone, "\n")] = '\0';
+  readLine(tempPhone, sizeof(tempPhone));
 
   printf(ANSI_COLOR_GREEN "Enter the contact address: " ANSI_COLOR_RESET);
-  fgets(tempAddress, sizeof(tempAddress), stdin);
-  tempAddress[strcspn(tempAddress, "\n")] = '\0';
+  readLine(tempAddress, sizeof(tempAddress));
 
   printf(ANSI_COLOR_GREEN "Enter the contact e-mail: " ANSI_COLOR_RESET);
-  fgets(tempEmail, sizeof(tempEmail), stdin);
-  tempEmail[strcspn(tempEmail, "\n")] = '\0';
+  readLine(tempEmail, sizeof(tempEmail));
 
   // CREATING TEMPORARY CONTACT
   strncpy(tempContact.name, tempName, sizeof(tempContact.name) - 1);
@@ -142,6 +136,7 @@ void viewContact()
   }
 }
 
+// SEARCH FUNCTIONS
 int searchContactById(int searchMenuUserId)
 {
   int contactIndex = findContactIndexById(searchMenuUserId);
