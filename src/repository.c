@@ -4,6 +4,7 @@
 #include "../includes/contact.h"
 #include "../includes/helper_funs.h"
 
+
 // ENUMERATORS
 typedef enum
 {
@@ -14,16 +15,13 @@ typedef enum
   SELECT_BY_E_MAIL,
 } SELECT_MENU_OPTIONS;
 
+
 // STATIC GLOBAL VARIABLES
 static CONTACT contacts[MAX_CONTACTS];
 static int contactCount = 0;
 
-// HELPER FUNCTIONS
-void showContact(int index)
-{
-  printf("{\nId: %d\nName: %s\nPhone No: %s\nAddress: %s\nE-mail: %s\n}\n\n", contacts[index].id, contacts[index].name, contacts[index].phone, contacts[index].address, contacts[index].email);
-}
 
+// STATICHELPER FUNCTIONS
 static int findContactIndexById(int id)
 {
   for (int i = 0; i < contactCount; i++)
@@ -83,6 +81,65 @@ static int findContactIndexByEmail(char email[CONTACT_EMAIL_LEN])
     }
   }
   return -1;
+}
+
+
+// FUNCTIONS
+void createContactFromInput()
+{
+  char tempName[100], tempPhone[20], tempAddress[100], tempEmail[100];
+  CONTACT tempContact;
+
+  // TAKING USER INPUT
+  printf(ANSI_COLOR_GREEN "Enter the contact name: " ANSI_COLOR_RESET);
+  readLine(tempName, sizeof(tempName));
+
+  printf(ANSI_COLOR_GREEN "Enter the contact phone no: " ANSI_COLOR_RESET);
+  readLine(tempPhone, sizeof(tempPhone));
+
+  printf(ANSI_COLOR_GREEN "Enter the contact address: " ANSI_COLOR_RESET);
+  readLine(tempAddress, sizeof(tempAddress));
+
+  printf(ANSI_COLOR_GREEN "Enter the contact e-mail: " ANSI_COLOR_RESET);
+  readLine(tempEmail, sizeof(tempEmail));
+
+  // CREATING TEMPORARY CONTACT
+  strncpy(tempContact.name, tempName, sizeof(tempContact.name) - 1);
+  tempContact.name[sizeof(tempContact.name) - 1] = '\0';
+
+  strncpy(tempContact.phone, tempPhone, sizeof(tempContact.phone) - 1);
+  tempContact.phone[sizeof(tempContact.phone) - 1] = '\0';
+
+  strncpy(tempContact.address, tempAddress, sizeof(tempContact.address) - 1);
+  tempContact.address[sizeof(tempContact.address) - 1] = '\0';
+
+  strncpy(tempContact.email, tempEmail, sizeof(tempContact.email) - 1);
+  tempContact.email[sizeof(tempContact.email) - 1] = '\0';
+
+  addContact(tempContact);
+}
+
+void addContact(CONTACT tempContact)
+{
+  if (contactCount >= MAX_CONTACTS)
+  {
+    printf(ANSI_COLOR_RED "Contact list is full.\n" ANSI_COLOR_RESET);
+    return;
+  }
+
+  // STORING USER INPUT IN contacts ARRAY
+  contacts[contactCount] = tempContact;
+  contacts[contactCount].id = contactCount + 1;
+
+  contactCount++;
+}
+
+void viewContact()
+{
+  for (int i = 0; i < contactCount; i++)
+  {
+    showContact(i);
+  }
 }
 
 int selectContact(int userChoiceForSelection)
@@ -155,70 +212,21 @@ int selectContact(int userChoiceForSelection)
   }
 }
 
-// FUNCTIONS
-void createContactFromInput()
+void showContact(int index)
 {
-  char tempName[100], tempPhone[20], tempAddress[100], tempEmail[100];
-  CONTACT tempContact;
-
-  // TAKING USER INPUT
-  printf(ANSI_COLOR_GREEN "Enter the contact name: " ANSI_COLOR_RESET);
-  readLine(tempName, sizeof(tempName));
-
-  printf(ANSI_COLOR_GREEN "Enter the contact phone no: " ANSI_COLOR_RESET);
-  readLine(tempPhone, sizeof(tempPhone));
-
-  printf(ANSI_COLOR_GREEN "Enter the contact address: " ANSI_COLOR_RESET);
-  readLine(tempAddress, sizeof(tempAddress));
-
-  printf(ANSI_COLOR_GREEN "Enter the contact e-mail: " ANSI_COLOR_RESET);
-  readLine(tempEmail, sizeof(tempEmail));
-
-  // CREATING TEMPORARY CONTACT
-  strncpy(tempContact.name, tempName, sizeof(tempContact.name) - 1);
-  tempContact.name[sizeof(tempContact.name) - 1] = '\0';
-
-  strncpy(tempContact.phone, tempPhone, sizeof(tempContact.phone) - 1);
-  tempContact.phone[sizeof(tempContact.phone) - 1] = '\0';
-
-  strncpy(tempContact.address, tempAddress, sizeof(tempContact.address) - 1);
-  tempContact.address[sizeof(tempContact.address) - 1] = '\0';
-
-  strncpy(tempContact.email, tempEmail, sizeof(tempContact.email) - 1);
-  tempContact.email[sizeof(tempContact.email) - 1] = '\0';
-
-  addContact(tempContact);
+  printf("{\nId: %d\nName: %s\nPhone No: %s\nAddress: %s\nE-mail: %s\n}\n\n", contacts[index].id, contacts[index].name, contacts[index].phone, contacts[index].address, contacts[index].email);
 }
 
-void addContact(CONTACT tempContact)
-{
-  if (contactCount >= MAX_CONTACTS)
+int deleteContact(int index){
+  for (int i = index; i < contactCount; i++)
   {
-    printf(ANSI_COLOR_RED "Contact list is full.\n" ANSI_COLOR_RESET);
-    return;
+    if (i == (contactCount-1))
+    {
+      contactCount--;
+      return 1;
+    }
+    contacts[i] = contacts[i+1];
+    contacts[i].id = (contacts[i].id)-1;
   }
-
-  // STORING USER INPUT IN contacts ARRAY
-  contacts[contactCount] = tempContact;
-  contacts[contactCount].id = contactCount + 1;
-
-  contactCount++;
+  return 0;
 }
-
-void viewContact()
-{
-  for (int i = 0; i < contactCount; i++)
-  {
-    showContact(i);
-  }
-}
-
-void showSelectedContact(int contactIndex)
-{
-  if (contactIndex != -1)
-  {
-    showContact(contactIndex);
-  }
-}
-
-// DELETE FUNCTIONS

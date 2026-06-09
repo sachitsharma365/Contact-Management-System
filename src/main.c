@@ -42,7 +42,6 @@ int menu()
 
 void searchMenu()
 {
-  // MAIN SEARCH MENU
   int searchMenuUserChoice;
 
   printf(ANSI_COLOR_BLUE "\nSelect one option by which you want to search the contact:-\n");
@@ -60,9 +59,45 @@ void searchMenu()
 
   int selectedContactIndex = selectContact(searchMenuUserChoice);
 
-  showSelectedContact(selectedContactIndex);
+  if (selectedContactIndex != -1)
+  {
+    showContact(selectedContactIndex);
+  }
 }
 
+void deleteMenu()
+{
+  int deleteMenuUserChoice;
+
+  printf(ANSI_COLOR_BLUE "\nSelect one option by which you want to delete the contact:-\n");
+  printf("1. Search By Id\n"
+         "2. Search By Name\n"
+         "3. Search By Phone No.\n"
+         "4. Search By Address\n"
+         "5. Search By E-mail\n" ANSI_COLOR_RESET);
+
+  printf("> ");
+  if (!readInt(&deleteMenuUserChoice))
+  {
+    deleteMenuUserChoice = 0;
+  }
+
+  int selectedContactIndex = selectContact(deleteMenuUserChoice);
+
+  if (selectedContactIndex != -1)
+  {
+    int deleteReturnValue = deleteContact(selectedContactIndex);
+
+    if (deleteReturnValue == 1)
+    {
+      printf(ANSI_COLOR_GREEN "Contact Deleted Sucessfully" ANSI_COLOR_RESET);
+    }
+    else if (deleteReturnValue == 0)
+    {
+      printf(ANSI_COLOR_RED "Contact Cannot Be Deleted" ANSI_COLOR_RESET);
+    }
+  }
+}
 
 // MAIN FUNCTION
 int main()
@@ -81,8 +116,7 @@ int main()
       viewContact();
       break;
     case DELETE_CONTACT:
-      // deleteMenu();
-      printf("Calling Delete Contact...\n");
+      deleteMenu();
       break;
     case UPDATE_CONTACT:
       printf("Calling Update Contact...\n");
