@@ -99,6 +99,39 @@ void deleteMenu()
   }
 }
 
+void updateMenu()
+{
+  int updateMenuUserChoice;
+
+  printf(ANSI_COLOR_BLUE "\nSelect one option to select the contact you want to update:-\n");
+  printf("1. Select By Id\n"
+         "2. Select By Name\n"
+         "3. Select By Phone No.\n"
+         "4. Select By Address\n"
+         "5. Select By E-mail\n" ANSI_COLOR_RESET);
+
+  printf("> ");
+  if (!readInt(&updateMenuUserChoice))
+  {
+    updateMenuUserChoice = 0;
+  }
+
+  int selectedContactIndex = selectContact(updateMenuUserChoice);
+
+  int updateFunReturnValue = updateContact(selectedContactIndex);
+
+  if (updateFunReturnValue == 1)
+  {
+    printf(ANSI_COLOR_GREEN "\nContact Update Successfully\n" ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_BLUE "This is the update Contact:-\n" ANSI_COLOR_RESET);
+    showContact(selectedContactIndex);
+  }
+  else if (updateFunReturnValue == 0)
+  {
+    printf(ANSI_COLOR_RED "\nError Updating the Contact :(\n" ANSI_COLOR_RESET);
+  }
+}
+
 // MAIN FUNCTION
 int main()
 {
@@ -119,7 +152,7 @@ int main()
       deleteMenu();
       break;
     case UPDATE_CONTACT:
-      printf("Calling Update Contact...\n");
+      updateMenu();
       break;
     case SEARCH_CONTACT:
       searchMenu();
