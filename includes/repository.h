@@ -4,7 +4,7 @@
 #include "contact.h"
 
 
-void createContactFromInput(void);
+CONTACT createContactFromInput(void);
 void addContact(CONTACT tempContact);
 void viewContact(void);
 int selectContact(int userChoiceForSelection);

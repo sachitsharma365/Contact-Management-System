@@ -81,7 +81,7 @@ static int findContactIndexByEmail(char email[CONTACT_EMAIL_LEN])
 }
 
 // FUNCTIONS
-void createContactFromInput()
+CONTACT createContactFromInput()
 {
   char tempName[100], tempPhone[20], tempAddress[100], tempEmail[100];
   CONTACT tempContact;
@@ -112,7 +112,7 @@ void createContactFromInput()
   strncpy(tempContact.email, tempEmail, sizeof(tempContact.email) - 1);
   tempContact.email[sizeof(tempContact.email) - 1] = '\0';
 
-  addContact(tempContact);
+  return tempContact;
 }
 
 void addContact(CONTACT tempContact)
@@ -228,83 +228,102 @@ int deleteContact(int index)
   return 0;
 }
 
-int updateContact(int index)
-{
-  int updateMenuUserChoice;
+// int updateContact(int index)
+// {
+//   int updateMenuUserChoice;
+
+//   printf(ANSI_COLOR_BLUE "\nThe current contact looks like:-\n" ANSI_COLOR_RESET);
+//   showContact(index);
+
+//   printf(ANSI_COLOR_BLUE "Which filed do you want to update\n");
+//   printf("1. Id (NOT RECOMENDED!!! - DANGER)\n"
+//          "2. Name\n"
+//          "3. Phone No.\n"
+//          "4. Address\n"
+//          "5. E-mail\n" ANSI_COLOR_RESET);
+
+//   printf("> ");
+//   if (!readInt(&updateMenuUserChoice))
+//   {
+//     updateMenuUserChoice = 0;
+//   }
+
+//   switch (updateMenuUserChoice)
+//   {
+//   case 1:
+//   {
+//     int newId;
+//     printf(ANSI_COLOR_BLUE "Enter The New Id: " ANSI_COLOR_RESET);
+//     if (!readInt(&newId))
+//     {
+//       newId = 0;
+//     }
+//     contacts[index].id = newId;
+//     return 1;
+//   }
+//   break;
+
+//   case 2:
+//   {
+//     char newName[CONTACT_NAME_LEN];
+//     printf(ANSI_COLOR_BLUE "Enter The New Name: " ANSI_COLOR_RESET);
+//     readLine(newName, sizeof(newName));
+//     strncpy(contacts[index].name, newName, sizeof(contacts[index].name) - 1);
+//     return 1;
+//   }
+//   break;
+
+//   case 3:
+//   {
+//     char newPhone[CONTACT_PHONE_LEN];
+//     printf(ANSI_COLOR_BLUE "Enter The New Phone Number: " ANSI_COLOR_RESET);
+//     readLine(newPhone, sizeof(newPhone));
+//     strncpy(contacts[index].phone, newPhone, sizeof(contacts[index].phone) - 1);
+//     return 1;
+//   }
+//   break;
+
+//   case 4:
+//   {
+//     char newAddress[CONTACT_PHONE_LEN];
+//     printf(ANSI_COLOR_BLUE "Enter The New Address: " ANSI_COLOR_RESET);
+//     readLine(newAddress, sizeof(newAddress));
+//     strncpy(contacts[index].address, newAddress, sizeof(contacts[index].address) - 1);
+//     return 1;
+//   }
+//   break;
+
+//   case 5:
+//   {
+//     char newEmail[CONTACT_PHONE_LEN];
+//     printf(ANSI_COLOR_BLUE "Enter The New E-mail: " ANSI_COLOR_RESET);
+//     readLine(newEmail, sizeof(newEmail));
+//     strncpy(contacts[index].email, newEmail, sizeof(contacts[index].email) - 1);
+//     return 1;
+//   }
+//   break;
+
+//   default:
+//     printf("Invalid Input");
+//     break;
+//   }
+// }
+
+int updateContact(int index){
+  if (index < 0 || index >= contactCount)
+  {
+    return 0;
+  }
 
   printf(ANSI_COLOR_BLUE "\nThe current contact looks like:-\n" ANSI_COLOR_RESET);
   showContact(index);
 
-  printf(ANSI_COLOR_BLUE "Which filed do you want to update\n");
-  printf("1. Id (NOT RECOMENDED!!! - DANGER)\n"
-         "2. Name\n"
-         "3. Phone No.\n"
-         "4. Address\n"
-         "5. E-mail\n" ANSI_COLOR_RESET);
+  printf(ANSI_COLOR_BLUE "Enter The New Updated Contact Details\n" ANSI_COLOR_RESET);
+  CONTACT tempUpdatedContact = createContactFromInput();
 
-  printf("> ");
-  if (!readInt(&updateMenuUserChoice))
-  {
-    updateMenuUserChoice = 0;
-  }
+  int currentContactId = contacts[index].id;
+  contacts[index] = tempUpdatedContact;
+  contacts[index].id = currentContactId;
 
-  switch (updateMenuUserChoice)
-  {
-  case 1:
-  {
-    int newId;
-    printf(ANSI_COLOR_BLUE "Enter The New Id: " ANSI_COLOR_RESET);
-    if (!readInt(&newId))
-    {
-      newId = 0;
-    }
-    contacts[index].id = newId;
-    return 1;
-  }
-  break;
-
-  case 2:
-  {
-    char newName[CONTACT_NAME_LEN];
-    printf(ANSI_COLOR_BLUE "Enter The New Name: " ANSI_COLOR_RESET);
-    readLine(newName, sizeof(newName));
-    strncpy(contacts[index].name, newName, sizeof(contacts[index].name) - 1);
-    return 1;
-  }
-  break;
-
-  case 3:
-  {
-    char newPhone[CONTACT_PHONE_LEN];
-    printf(ANSI_COLOR_BLUE "Enter The New Phone Number: " ANSI_COLOR_RESET);
-    readLine(newPhone, sizeof(newPhone));
-    strncpy(contacts[index].phone, newPhone, sizeof(contacts[index].phone) - 1);
-    return 1;
-  }
-  break;
-
-  case 4:
-  {
-    char newAddress[CONTACT_PHONE_LEN];
-    printf(ANSI_COLOR_BLUE "Enter The New Address: " ANSI_COLOR_RESET);
-    readLine(newAddress, sizeof(newAddress));
-    strncpy(contacts[index].address, newAddress, sizeof(contacts[index].address) - 1);
-    return 1;
-  }
-  break;
-
-  case 5:
-  {
-    char newEmail[CONTACT_PHONE_LEN];
-    printf(ANSI_COLOR_BLUE "Enter The New E-mail: " ANSI_COLOR_RESET);
-    readLine(newEmail, sizeof(newEmail));
-    strncpy(contacts[index].email, newEmail, sizeof(contacts[index].email) - 1);
-    return 1;
-  }
-  break;
-
-  default:
-    printf("Invalid Input");
-    break;
-  }
+  return 1;
 }

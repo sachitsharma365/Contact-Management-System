@@ -143,7 +143,8 @@ int main()
     switch (userChoice)
     {
     case ADD_CONTACT:
-      createContactFromInput();
+      CONTACT tempContact = createContactFromInput();
+      addContact(tempContact);
       break;
     case VIEW_CONTACTS:
       viewContact();
